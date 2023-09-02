@@ -1,37 +1,36 @@
 #include "mbed.h"
 #include "arm_book_lib.h"
 
+//=====[Defines]===============================================================
+
+#define GAS_DETECTOR         0
+#define OVER_TEMP_DETECTOR   1
+#define A_BUTTON             2
+#define B_BUTTON             3
+#define C_BUTTON             4
+#define D_BUTTON             5
+
 int main()
 {
-    DigitalIn gasDetector(D2);
-    DigitalIn overTempDetector(D3);
-    DigitalIn aButton(D4);
-    DigitalIn bButton(D5);
-    DigitalIn cButton(D6);
-    DigitalIn dButton(D7);
+    BusIn busPines(D2, D3, D4, D5, D6, D7);
 
-    DigitalOut alarmLed(LED1);
+    BusOut alarmLed(LED1);
+    
+    busPines.mode(PullDown);
 
-    gasDetector.mode(PullDown);
-    overTempDetector.mode(PullDown);
-    aButton.mode(PullDown);
-    bButton.mode(PullDown);
-    cButton.mode(PullDown);
-    dButton.mode(PullDown);
-
-    alarmLed = OFF;
+    alarmLed.write(OFF);
 
     bool alarmState = OFF;
 
     while (true) {
 
-        if ( gasDetector || overTempDetector ) {
+        if ( busPines[GAS_DETECTOR] || busPines[OVER_TEMP_DETECTOR] ) {
             alarmState = ON;
         }
 
         alarmLed = alarmState;
 
-        if ( aButton && bButton && !cButton && !dButton) {
+        if ( busPines[A_BUTTON] && busPines[B_BUTTON] && !busPines[C_BUTTON] && !busPines[D_BUTTON] ) {
             alarmState = OFF;
         }
     }
