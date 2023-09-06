@@ -1,0 +1,12 @@
+Ventaja:
+-Si se requiere utilizar varios pines, tanto de un mismo puerto como de 
+diferentes puertos, y su configuración es la misma (entrada o salida)
+se puede lograr mediante BusIn (BusOut) y PortIn (PortOut) el manejo
+de una menor cantidad de variables en el código fuente.
+
+Desventaja:
+-En el caso de solo utilizar unos pocos pines de un puerto, estaríamos
+desperdiciando los que no usamos, consumiendo recursos del microcontrolador.
+
+-Todos los pines tienen que llevar la misma configuración, quitando libertad
+a la hora de conectar ciertos componentes.
